@@ -1,0 +1,67 @@
+name: Bug report
+description: Something in the indexer or the API does not work as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. For security problems, do not use this form. See [SECURITY.md](https://github.com/neonewstoday/neo-scope/blob/main/SECURITY.md).
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - neo-scope-indexer
+        - neo-scope-api
+        - neo-scope-db (schema / migrations)
+        - Documentation
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you observed, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Commands, requests (e.g. the full API URL) and the block range or transaction involved.
+      placeholder: |
+        1. Index testnet T4 from block 306985
+        2. GET /v1/neox/transaction/0x...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or responses
+      description: Indexer log lines or API response bodies. This is rendered as code, no need for backticks.
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: neo-scope version or commit
+      placeholder: v0.1.0 or a commit hash
+    validations:
+      required: true
+  - type: dropdown
+    id: network
+    attributes:
+      label: Network
+      options:
+        - Mainnet (47763)
+        - Testnet T4 (12227332)
+        - Other / local
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Rust version (`rustc --version`) and MySQL version.
+      placeholder: Ubuntu 24.04, rustc 1.97.1, MySQL 8.4

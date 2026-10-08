@@ -1,0 +1,32 @@
+[graph]
+all-features = false
+
+[advisories]
+version = 2
+yanked = "deny"
+ignore = [
+    { id = "RUSTSEC-2026-0258", reason = "h2 0.3 comes in through actix-http, but the API binds plain HTTP/1.1 (no TLS/ALPN, no bind_auto_h2c), so HTTP/2 frames are never parsed. Remove once actix-http moves to h2 0.4." },
+]
+
+[licenses]
+version = 2
+confidence-threshold = 0.9
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-3-Clause",
+    "CDLA-Permissive-2.0",
+    "ISC",
+    "Unicode-3.0",
+    "Zlib",
+]
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+allow-wildcard-paths = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

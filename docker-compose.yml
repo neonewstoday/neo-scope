@@ -1,0 +1,52 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: neox_testnet
+      MYSQL_USER: neoscope
+      MYSQL_PASSWORD: neoscope
+      MYSQL_ROOT_PASSWORD: neoscope-root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uneoscope", "-pneoscope"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  indexer:
+    build: .
+    image: neo-scope:local
+    command: ["neo-scope-indexer"]
+    environment:
+      DATABASE_URL: mysql://neoscope:neoscope@mysql:3306/neox_testnet
+      NODE_URL: ${NODE_URL:-https://neoxt4seed1.ngd.network}
+      CHAIN_ID: ${CHAIN_ID:-12227332}
+      START_BLOCK: ${START_BLOCK:-0}
+      BATCH_SIZE: ${BATCH_SIZE:-25}
+      RUST_LOG: ${RUST_LOG:-info,sqlx=warn}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  api:
+    image: neo-scope:local
+    command: ["neo-scope-api"]
+    environment:
+      DATABASE_URL: mysql://neoscope:neoscope@mysql:3306/neox_testnet
+      API_HOST: 0.0.0.0
+      API_PORT: 8083
+      RUST_LOG: ${RUST_LOG:-info,sqlx=warn}
+    ports:
+      - "${API_PORT:-8083}:8083"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      indexer:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  mysql-data:

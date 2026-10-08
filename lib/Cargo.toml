@@ -1,0 +1,19 @@
+[package]
+name = "neo-scope-db"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish.workspace = true
+description = "Shared database layer (models, migrations, MySQL access) for the Neo X indexer"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+anyhow = "1.0"
+log = "0.4"
+sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "tls-rustls-aws-lc-rs", "mysql", "chrono"] }
+tokio = { version = "1", features = ["time"] }
