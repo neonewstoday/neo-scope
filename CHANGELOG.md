@@ -9,7 +9,9 @@ schema or the API.
 
 ## [Unreleased]
 
-First public release, planned as `0.1.0`.
+## [0.1.0] - 2026-10-27
+
+First public release.
 
 ### Added
 
@@ -27,4 +29,5 @@ First public release, planned as `0.1.0`.
 - Contributor documentation: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, and issue
   and pull request templates.
 
-[Unreleased]: https://github.com/neonewstoday/neo-scope/commits/main
+[Unreleased]: https://github.com/neonewstoday/neo-scope/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/neonewstoday/neo-scope/releases/tag/v0.1.0
